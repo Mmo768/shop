@@ -1,0 +1,10 @@
+.bottom{
+    bottom: 70% !important;
+}
+.start{
+    left: 70% !important;
+}
+nav{
+    position: relative;
+    z-index: 1050;
+}

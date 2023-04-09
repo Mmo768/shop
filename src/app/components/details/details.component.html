@@ -1,0 +1,28 @@
+<section class="mt-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-5 col-lg-4">
+                <owl-carousel-o [options]="imgDetails">
+                    <ng-template carouselSlide *ngFor="let imgSrc of dataDetails?.data.images" ><img class="img-fluid" [src]="imgSrc" alt="photo"></ng-template>  
+                  </owl-carousel-o>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                    <div class="box">
+                        <h1>{{dataDetails?.data.title}}</h1>
+                        <p>{{dataDetails?.data.description}}</p>
+                        <span>{{dataDetails?.data.category.name}}</span>
+                        <div class=" d-flex justify-content-between align-items-center my-4">
+                                <span>{{dataDetails?.data.price}} EGP</span>
+                                <span><i class="fas fa-star text-warning"></i> {{dataDetails?.data.ratingsAverage}}</span>
+                        </div>
+                        <button (click)="addProduct(dataDetails?.data.id)" class="btn bg-main text-white w-100 d-block" >
+                            <i *ngIf="clickBtn" class="fas fa-spinner fa-spin me-1"></i>
+                            <span *ngIf="clickBtn" class="fw-bolder">ADD</span>
+                            <span *ngIf="!clickBtn" class="fw-bolder">+ ADD</span>
+                        </button>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>

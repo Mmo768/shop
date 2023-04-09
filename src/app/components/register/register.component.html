@@ -1,0 +1,51 @@
+<section class="py-5">
+    <div class="container">
+        <form class="w-75 mx-auto mt-3" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+            <h3 class="alert alert-danger p-2 h5 fw-bolder" *ngIf="Error">{{Error}}</h3>
+            <label class="fw-bold" for="">name: </label>
+            <input formControlName="name" [ngClass]="{'is-valid':registerForm.get('name')?.valid}" type="text" class="form-control mb-3">
+            <div *ngIf="registerForm.get('name')?.errors && registerForm.get('name')?.dirty" class="alert alert-danger p-1">
+                <p *ngIf="registerForm.get('name')?.getError('required')" class="m-0">name Is Required</p>
+                <p *ngIf="registerForm.get('name')?.getError('minlength')" class="m-0">name Is min char 3</p>
+                <p *ngIf="registerForm.get('name')?.getError('maxlength')" class="m-0">name Is max char 10</p>
+            </div>
+
+
+            <label class="fw-bold" for="">email: </label>
+            <input formControlName="email" [ngClass]="{'is-valid':registerForm.get('email')?.valid}" type="email" class="form-control mb-3">
+            <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.dirty" class="alert alert-danger p-1">
+                <p *ngIf="registerForm.get('email')?.getError('required')" class="m-0">email Is Required</p>
+                <p *ngIf="registerForm.get('email')?.getError('email')" class="m-0">Enter Valid Email</p>
+            </div>
+
+
+            <label class="fw-bold" for="">password: </label>
+            <input formControlName="password" [ngClass]="{'is-valid':registerForm.get('password')?.valid}" type="password" class="form-control mb-3">
+            <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.dirty" class="alert alert-danger p-1">
+                <p *ngIf="registerForm.get('password')?.getError('required')" class="m-0">password Is Required</p>
+                <p *ngIf="registerForm.get('password')?.getError('pattern')" class="m-0">same ( Mmm512 )</p>
+            </div>
+
+
+            <label class="fw-bold" for="">rePassword: </label>
+            <input formControlName="rePassword" [ngClass]="{'is-valid':registerForm.get('rePassword')?.valid}" type="password" class="form-control mb-3">
+            <div *ngIf="registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.dirty" class="alert alert-danger p-1">
+                <p *ngIf="registerForm.get('rePassword')?.getError('required')" class="m-0">rePassword Is Required</p>
+                <p *ngIf="registerForm.get('rePassword')?.getError('math')" class="m-0">password and repassword not math</p>
+            </div>
+
+
+            <label class="fw-bold" for="">Phone: </label>
+            <input formControlName="phone" [ngClass]="{'is-valid':registerForm.get('phone')?.valid}" type="tel" class="form-control mb-3">
+            <div *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.dirty" class="alert alert-danger p-1">
+                <p *ngIf="registerForm.get('phone')?.getError('required')" class="m-0">phone Is Required</p>
+                <p *ngIf="registerForm.get('phone')?.getError('pattern')" class="m-0">Enter Vaild Egyption Phone</p>
+            </div>
+
+            <button [disabled]="registerForm.invalid" class="btn bg-main text-white fw-bolder d-block ms-auto">
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Submit</span>
+            </button>
+        </form>
+    </div>
+</section>

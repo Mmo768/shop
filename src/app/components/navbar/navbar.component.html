@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg bg-white">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img class="w-100" src="./assets/freshcart-logo.svg" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link fw-bolder" routerLink="Home" routerLinkActive="text-main">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bolder" routerLink="Product" routerLinkActive="text-main">Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bolder" routerLink="categories" routerLinkActive="text-main">categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bolder" routerLink="Brands" routerLinkActive="text-main">Brands</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogin">
+            <a class="nav-link fw-bolder" routerLink="Cart" routerLinkActive="text-main">
+              <span class=" position-relative">
+                Cart
+                <span class="position-absolute bottom start bg-main text-white badge">{{numOfCartItems}}</span>
+              </span>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="isLogin">
+            <a class="nav-link fw-bolder" routerLink="Order" routerLinkActive="text-main">order</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item d-flex gap-1">
+            <a class="nav-link fw-bolder"  ><i class="fab fa-facebook"></i></a>
+            <a class="nav-link fw-bolder"  ><i class="fab fa-github"></i></a>
+            <a class="nav-link fw-bolder"  ><i class="fab fa-youtube"></i></a>
+            <a class="nav-link fw-bolder"  ><i class="fab fa-twitter"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bolder" *ngIf="!isLogin" routerLink="Register" routerLinkActive="text-main">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bolder" *ngIf="!isLogin" routerLink="LogIn"  routerLinkActive="text-main">LogIn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bolder" (click)="logOut()" *ngIf="isLogin">LogOut</a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>

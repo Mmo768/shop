@@ -1,0 +1,8 @@
+.categoriesImg{
+    height: 250px !important;
+}
+@media (max-width:400px) {
+    .categoriesImg{
+    height: 300px !important;
+}
+}

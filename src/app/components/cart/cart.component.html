@@ -1,0 +1,74 @@
+<section class="py-4">
+    <div class="container">
+        <div class="box bg-light d-flex justify-content-between align-items-center align-items-start p-4">
+            <div>
+                <h2 class="fw-bolder text-dark m-0">Total carts </h2>
+                <h2  *ngIf="dataCart" class="fw-bold h5 text-main m-0">Total Price : {{dataCart?.data.totalCartPrice }}</h2>
+                <h2  *ngIf="!dataCart" class="fw-bold h5 text-main m-0">Total Price : 0 EGP</h2>
+            </div>
+            <button [disabled]="arrayOfAdd.includes('remove')" *ngIf="dataCart" (click)="deleteAll()" class="btn text-white bg-main" >Remove All</button>
+
+        </div>
+
+        <div class="box my-4 p-4 bg-light"  *ngFor="let el of dataCart?.data.products">
+            <div class="row g-4">
+                <div class="col-sm-3 col-md-3 col-lg-2">
+                    <div class="image">
+                        <img class="w-100" [src]="el.product.imageCover" alt="">
+                    </div>
+                </div>
+                <div class="col-sm-9 col-md-9 col-lg-10 d-flex justify-content-between align-items-center">
+                    <div class="items">
+                        <div>
+                            <h2 class="fw-bold">{{el.product.title|titleCut:7}}</h2>
+                            <h4 class="fw-bold text-main">price: {{el.price}}</h4>
+                            <button [disabled]="arrayOfAdd.includes(el.product.id)" (click)="remove(el.product.id)" class="btn bg-main text-white fw-bold"><i class="fa-solid fa-trash text-danger"></i> Delete</button>
+                        </div>
+                    </div>
+                    <div class="items flex-shrink-0">
+                        <button [disabled]="arrayOfAdd.includes(el.product.id)" (click)="update(el.product.id , el.count+1)" class="btn bg-main fw-bolder" ><i class="fa-solid fa-plus text-white"></i></button>
+                        <span *ngIf="!arrayOfAdd.includes(el.product.id)" class="p-4">{{el.count}}</span>
+                        <span *ngIf="arrayOfAdd.includes(el.product.id)" class="p-4"><i class="fas fa-spinner fa-spin text-main"></i></span>
+                        <button [disabled]="arrayOfAdd.includes(el.product.id)" (click)="update(el.product.id , el.count-1)" class="btn bg-main fw-bolder" ><i class="fa-solid fa-minus text-white"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="dataCart" class="box bg-light d-flex justify-content-between align-items-center p-4">
+            <h2 class="fw-bolder text-dark m-0">check out </h2>
+            <button class="btn text-white bg-main" data-bs-toggle="modal" data-bs-target="#exampleModal">Chech Out</button>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="checkForm">
+            <div class="form-floating mb-3">
+                <input type="text" formControlName="details" class="form-control" id="floatingInput" placeholder="details">
+                <label for="floatingInput">details</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="tel" formControlName="phone" class="form-control" id="floatingPassword" placeholder="phone">
+                <label for="floatingPassword">phone</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" formControlName="city" class="form-control" id="floatingPassword" placeholder="city">
+                <label for="floatingPassword">city</label>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button (click)="checkOut(checkForm,dataCart?.data._id)" class="btn btn-primary"><i *ngIf="checkOutBool" class="fas fa-spinner fa-spin"></i> pay <i class="fa-brands fa-cc-visa"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>

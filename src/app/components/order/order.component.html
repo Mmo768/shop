@@ -1,0 +1,32 @@
+<section class="py-4">
+    <div class="container">
+        <div class="my-4 p-4 bg-light" *ngFor="let el of dataOrder">
+            <ng-container  *ngFor="let items of el.cartItems ; let last = last">
+                <div class="box " [ngClass]="{'border-bottom py-2':!last}">
+                    <div class="row g-4">
+                        <div class="col-sm-3 col-md-2 col-lg-1">
+                            <div class="image">
+                                <img class="w-100" [src]="items.product.imageCover" alt="">
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col-md-10 col-lg-11 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
+                            <div class="items">
+                                <div>
+                                    <h2 class="fw-bold">{{items.product.title|titleCut:4}}</h2>
+                                    <h4 class="fw-bold text-main">price: {{items.price}}</h4>
+                                </div>
+                            </div>
+                            <div class="items flex-shrink-0">
+                                <span class="fw-bolder">count : {{items.count}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="pt-4">
+                <p class="fw-bold mb-1">Date : {{el.paidAt|date}}</p>
+                <p class="fw-bold mb-1">Delivered : {{el.isDelivered? 'Yes' : 'No'}}</p>
+            </div>
+        </div>
+    </div>
+</section>

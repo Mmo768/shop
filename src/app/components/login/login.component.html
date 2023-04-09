@@ -1,0 +1,28 @@
+<section class="mt-5">
+    <div class="container">
+        <form class="w-75 mx-auto mt-3" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+            <h3 class="alert alert-danger p-2 h5 fw-bolder" *ngIf="Error">{{Error}}</h3>
+
+            <label class="fw-bold" for="">email: </label>
+            <input formControlName="email" [ngClass]="{'is-valid':loginForm.get('email')?.valid}" type="email" class="form-control mb-3">
+            <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.dirty" class="alert alert-danger p-1">
+                <p *ngIf="loginForm.get('email')?.getError('required')" class="m-0">email Is Required</p>
+                <p *ngIf="loginForm.get('email')?.getError('email')" class="m-0">Enter Valid Email</p>
+            </div>
+
+
+            <label class="fw-bold" for="">password: </label>
+            <input formControlName="password" [ngClass]="{'is-valid':loginForm.get('password')?.valid}" type="password" class="form-control mb-3">
+            <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.dirty" class="alert alert-danger p-1">
+                <p *ngIf="loginForm.get('password')?.getError('required')" class="m-0">password Is Required</p>
+                <p *ngIf="loginForm.get('password')?.getError('pattern')" class="m-0">same ( Mmm512 )</p>
+            </div>
+
+
+            <button [disabled]="loginForm.invalid" class="btn bg-main text-white fw-bolder d-block ms-auto">
+                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                <span *ngIf="!isLoading">Login</span>
+            </button>
+        </form>
+    </div>
+</section>
