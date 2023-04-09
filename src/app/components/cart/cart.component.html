@@ -22,7 +22,7 @@
                         <div>
                             <h2 class="fw-bold">{{el.product.title|titleCut:7}}</h2>
                             <h4 class="fw-bold text-main">price: {{el.price}}</h4>
-                            <button [disabled]="arrayOfAdd.includes(el.product.id)" (click)="remove(el.product.id)" class="btn bg-main text-white fw-bold"><i class="fa-solid fa-trash text-danger"></i> Delete</button>
+                            <button [disabled]="arrayOfAdd.includes(el.product.id)" (click)="remove(el.product.id)" class="btn border-danger text-danger bg-transparent fw-bold"><i class="fa-solid fa-trash text-danger"></i> Delete</button>
                         </div>
                     </div>
                     <div class="items flex-shrink-0">

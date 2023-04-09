@@ -31,9 +31,11 @@ export class HomeComponent {
     this._DataService.getCategoriesCarousel().subscribe({
       next:(response)=>{
         this.dataCategoriesCarousel = response;
+        this._LoadService.isFalse();
       },
       error:(err)=>{
         console.log('categoriesCarousel',err);
+        this._LoadService.isFalse();
       }
     });
 
@@ -41,7 +43,7 @@ export class HomeComponent {
     this._DataService.getproducts(1).subscribe({
       next:(response)=>{
         this.dataProducts = response;
-        this._LoadService.isFalse();
+        
       },
       error:(err)=>{
         console.log('dataProducts',err);

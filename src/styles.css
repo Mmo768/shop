@@ -8,6 +8,20 @@
     --font-family:'Encode Sans Expanded', sans-serif;
     --rating-color:#ffc908;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+  }
 
 body{
     font-family: var(--font-family) !important;
