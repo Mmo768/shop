@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { DataService } from 'src/app/services/data.service';
 import { LoadService } from 'src/app/services/load.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -19,6 +20,7 @@ export class HomeComponent {
   dataProducts:any;
   wordSearch:string = '';
   arrayOfAdd:any[] = [];
+  sub:Subscription = new Subscription();
 
   
 
@@ -27,7 +29,9 @@ export class HomeComponent {
 // ========= start on init =========
   ngOnInit(){
 
-    this._DataService.getCategoriesCarousel().subscribe({
+    this._LoadService.isFalse();
+    
+    this.sub.add(this._DataService.getCategoriesCarousel().subscribe({
       next:(response)=>{
         this.dataCategoriesCarousel = response;
 
@@ -36,10 +40,10 @@ export class HomeComponent {
         console.log('categoriesCarousel',err);
 
       }
-    });
+    }));
 
 
-    this._DataService.getproducts(1).subscribe({
+    this.sub.add(this._DataService.getproducts(1).subscribe({
       next:(response)=>{
         this.dataProducts = response;
         
@@ -47,9 +51,8 @@ export class HomeComponent {
       error:(err)=>{
         console.log('dataProducts',err);
       }
-    });
-    
-
+    }));
+  
 
   }
 
@@ -120,6 +123,10 @@ export class HomeComponent {
       this._Router.navigate(['/LogIn']);
     }
 
+  }
+
+  ngOnDestroy(){
+    this.sub.unsubscribe();
   }
 
 

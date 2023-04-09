@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs';
+
 
 
 @Component({
@@ -13,7 +15,7 @@ export class RegisterComponent {
 
   Error!:string;
   isLoading:boolean = false;
-
+  sub:Subscription = new Subscription();
 
   constructor(private _AuthService:AuthService , private _Router:Router){}
 
@@ -45,7 +47,7 @@ customPassword(registerForm:any){
 
 onSubmit(registerForm:FormGroup){
   this.isLoading = true;
-  this._AuthService.signUp(registerForm.value).subscribe({
+  this.sub.add(  this._AuthService.signUp(registerForm.value).subscribe({
     next:(reponse)=>{
       if(reponse.message == "success"){
         this._Router.navigate(['/LogIn']);
@@ -58,9 +60,16 @@ onSubmit(registerForm:FormGroup){
       this.isLoading = false;
       
     }
-  })
+  }));
 
 }
+
+
+    //========= start on destroy ==========
+    ngOnDestroy(){
+      this.sub.unsubscribe();
+  
+    }
 
 
 

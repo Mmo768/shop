@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { DataService } from 'src/app/services/data.service';
 import { LoadService } from 'src/app/services/load.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { LoadService } from 'src/app/services/load.service';
 export class BrandComponent {
 
   dataBrand!:any;
+  sub:Subscription = new Subscription();
 
   constructor(private _DataService:DataService , private _AuthService:AuthService , private _CartService:CartService , private _Router:Router,private _LoadService:LoadService){}
 
@@ -24,7 +26,8 @@ export class BrandComponent {
 
   getData(page:number){
     this._LoadService.isTrue();
-    this._DataService.getBrand(page).subscribe({
+
+    this.sub.add(    this._DataService.getBrand(page).subscribe({
       next:(response)=>{
         this.dataBrand = response;
         this._LoadService.isFalse();
@@ -33,7 +36,13 @@ export class BrandComponent {
         console.log('brand > on init' , err);
         
       }
-    })
+    }));
+  }
+
+  //========= start on destroy ==========
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+
   }
   
 

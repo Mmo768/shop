@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { LoadService } from 'src/app/services/load.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,12 +11,13 @@ import { LoadService } from 'src/app/services/load.service';
 })
 export class OrderComponent {
   dataOrder:any;
+  sub:Subscription = new Subscription();
 
   constructor(private _CartService:CartService,private _LoadService:LoadService){}
 
   ngOnInit(){
     this._LoadService.isTrue();
-    this._CartService.cartOwner.subscribe((x)=>{
+    this.sub.add(    this._CartService.cartOwner.subscribe((x)=>{
       if(x!=null){
         
         this._CartService.getUserOrder(x).subscribe({
@@ -27,13 +29,17 @@ export class OrderComponent {
             console.log('order > onInit' , err);
             
           }})
-      }})
+      }}));
 
 
 
   }
 
 
-
+    //========= start on destroy ==========
+    ngOnDestroy(){
+      this.sub.unsubscribe();
+  
+    }
 
 }

@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { Subscription } from 'rxjs';
+
 
 
 
@@ -15,6 +17,7 @@ export class LoginComponent {
 
   Error!:string;
   isLoading:boolean = false;
+  sub:Subscription = new Subscription();
 
 
   constructor(private _AuthService:AuthService , private _Router:Router,private _CartService:CartService){}
@@ -31,7 +34,7 @@ export class LoginComponent {
 
 onSubmit(loginForm:FormGroup){
   this.isLoading = true;
-  this._AuthService.signIn(loginForm.value).subscribe({
+  this.sub.add(  this._AuthService.signIn(loginForm.value).subscribe({
     next:(reponse)=>{
       if(reponse.message == "success"){
         localStorage.setItem('userToken' , reponse.token);
@@ -47,9 +50,16 @@ onSubmit(loginForm:FormGroup){
       this.isLoading = false;
       
     }
-  })
+  }));
 
 }
+
+
+    //========= start on destroy ==========
+    ngOnDestroy(){
+      this.sub.unsubscribe();
+  
+    }
 
 
 

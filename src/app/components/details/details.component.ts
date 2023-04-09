@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { DataService } from 'src/app/services/data.service';
 import { LoadService } from 'src/app/services/load.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class DetailsComponent {
   dataDetails:any;
   productId:any;
   clickBtn:boolean = false;
+  sub:Subscription = new Subscription();
 
 
   constructor(private _DataService:DataService , private _ActivatedRoute:ActivatedRoute,private _CartService:CartService , private _AuthService:AuthService , private _Router:Router,private _LoadService:LoadService){}
@@ -31,7 +33,7 @@ export class DetailsComponent {
       }
     })
 
-    this._DataService.getproductdetails(this.productId.params.id).subscribe({
+    this.sub.add(this._DataService.getproductdetails(this.productId.params.id).subscribe({
       next:(response)=>{
         this.dataDetails = response;
         this._LoadService.isFalse();
@@ -41,7 +43,8 @@ export class DetailsComponent {
         console.log('detailsProduct'  , err);
         
       }
-    })
+    }));
+
   }
 
 
@@ -67,7 +70,7 @@ export class DetailsComponent {
 
     if(this._AuthService.token.value != null){
       this.clickBtn = true;
-      this._CartService.addProductToCart(id).subscribe({
+      this.sub.add( this._CartService.addProductToCart(id).subscribe({
         next:(response)=>{
           //////////////////////////////sucess add
           this._CartService.numOfCartItems.next(response.numOfCartItems);
@@ -79,12 +82,19 @@ export class DetailsComponent {
           this.clickBtn = false;
           
         }
-      })
+      }));
     }else{
       this._Router.navigate(['/LogIn']);
     }
 
   }
+
+    //========= start on destroy ==========
+    ngOnDestroy(){
+      this.sub.unsubscribe();
+  
+    }
+  
 
   
 

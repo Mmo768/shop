@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { DataService } from 'src/app/services/data.service';
 import { LoadService } from 'src/app/services/load.service';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-brand-product',
@@ -15,6 +17,7 @@ export class BrandProductComponent {
   dataProducts:any;
   arrayOfAdd:any[] = [];
   BrandId!:any;
+  sub:Subscription = new Subscription();
 
   
 
@@ -23,11 +26,12 @@ export class BrandProductComponent {
 // ========= start on init =========
   ngOnInit(){
     this._LoadService.isTrue();
-    this._ActivatedRoute.queryParamMap.subscribe((x)=>{
+
+    this.sub.add( this._ActivatedRoute.queryParamMap.subscribe((x)=>{
       this.BrandId = x;
       this.getData(this.BrandId.params.BrandId , 1);
       
-    });
+    }));
     
 
   }
@@ -35,7 +39,7 @@ export class BrandProductComponent {
 //========== start function ==========
 getData(id:any ,page:number){
   
-  this._DataService.getBrandProduct(id,page).subscribe({
+  this.sub.add(  this._DataService.getBrandProduct(id,page).subscribe({
     next:(response)=>{
       this.dataProducts = response;
       this._LoadService.isFalse();
@@ -47,7 +51,8 @@ getData(id:any ,page:number){
     error:(err)=>{
       console.log('dataProducts',err);
     }
-  });
+  }));
+
 }
 
 
@@ -56,7 +61,7 @@ getData(id:any ,page:number){
   addProduct(id:any){
     if(this._AuthService.token.value != null){
       this.arrayOfAdd.push(id);
-      this._CartService.addProductToCart(id).subscribe({
+      this.sub.add( this._CartService.addProductToCart(id).subscribe({
         next:(response)=>{
           //////////////////////////////sucess add
           this._CartService.numOfCartItems.next(response.numOfCartItems);
@@ -68,12 +73,18 @@ getData(id:any ,page:number){
           this.arrayOfAdd.splice(this.arrayOfAdd.indexOf(id),1)
           
         }
-      })
+      }));
     }else{
       this._Router.navigate(['/LogIn']);
     }
 
   }
+
+    //========= start on destroy ==========
+    ngOnDestroy(){
+      this.sub.unsubscribe();
+  
+    }
 
 
 

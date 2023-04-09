@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { DataService } from 'src/app/services/data.service';
 import { LoadService } from 'src/app/services/load.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class ProductsComponent {
 
   dataProducts:any;
   arrayOfAdd:any[] = [];
+  sub:Subscription = new Subscription();
 
   
 
@@ -29,7 +31,8 @@ export class ProductsComponent {
 //========== start function ==========
 getData(page:number){
   this._LoadService.isTrue();
-  this._DataService.getproducts(page).subscribe({
+
+  this.sub.add(  this._DataService.getproducts(page).subscribe({
     next:(response)=>{
       this.dataProducts = response;
       this._LoadService.isFalse();
@@ -37,7 +40,8 @@ getData(page:number){
     error:(err)=>{
       console.log('dataProducts',err);
     }
-  });
+  }));
+
 }
 
 
@@ -67,6 +71,11 @@ getData(page:number){
   }
 
 
+  //========= start on destroy ==========
+
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+  }
 
 
 

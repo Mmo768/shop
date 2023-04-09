@@ -3,7 +3,7 @@
         <div class="row g-4">
             <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let imgSrc of dataBrand?.data">
                 <div class="image product" routerLink="/BrandProducts" [queryParams]="{BrandId:imgSrc._id}">
-                    <img class="w-100" [src]="imgSrc.image" alt="">
+                    <img class="w-100" [lazyLoad]="imgSrc.image" alt="">
                 </div>
             </div>
         </div>

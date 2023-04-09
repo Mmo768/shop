@@ -5,6 +5,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -62,6 +63,7 @@ import { DatePipe } from './pipes/date.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    LazyLoadImageModule,
     SweetAlert2Module.forRoot()
     
     
