@@ -27,15 +27,14 @@ export class HomeComponent {
 // ========= start on init =========
   ngOnInit(){
 
-    this._LoadService.isTrue();
     this._DataService.getCategoriesCarousel().subscribe({
       next:(response)=>{
         this.dataCategoriesCarousel = response;
-        this._LoadService.isFalse();
+
       },
       error:(err)=>{
         console.log('categoriesCarousel',err);
-        this._LoadService.isFalse();
+
       }
     });
 
