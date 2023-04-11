@@ -4,6 +4,8 @@ import { CartService } from 'src/app/services/cart.service';
 import { LoadService } from 'src/app/services/load.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subscription } from 'rxjs';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +21,9 @@ export class CartComponent {
   sub:Subscription = new Subscription();
   
 
-  constructor(private _CartService:CartService,private _LoadService:LoadService){}
+  constructor(private _CartService:CartService,private _LoadService:LoadService,private _Title:Title){
+    _Title.setTitle('Cart');
+  }
 
   //========== start on init ==========
   ngOnInit(){
@@ -27,6 +31,9 @@ export class CartComponent {
     this.sub.add(    this._CartService.getProductFromCart().subscribe({
       next:(response)=>{
         this.dataCart = response;
+        if(this.dataCart?.data.products.length<1){
+          this.dataCart = null;
+        }
         this._LoadService.isFalse();
         
       },

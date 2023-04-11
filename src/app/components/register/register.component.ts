@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
-
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -17,7 +17,9 @@ export class RegisterComponent {
   isLoading:boolean = false;
   sub:Subscription = new Subscription();
 
-  constructor(private _AuthService:AuthService , private _Router:Router){}
+  constructor(private _AuthService:AuthService , private _Router:Router,private _Title:Title){
+    _Title.setTitle('Register');
+  }
 
 
 

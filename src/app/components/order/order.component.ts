@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { LoadService } from 'src/app/services/load.service';
 import { Subscription } from 'rxjs';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-order',
@@ -13,7 +13,9 @@ export class OrderComponent {
   dataOrder:any;
   sub:Subscription = new Subscription();
 
-  constructor(private _CartService:CartService,private _LoadService:LoadService){}
+  constructor(private _CartService:CartService,private _LoadService:LoadService,private _Title:Title){
+    _Title.setTitle('Order');
+  }
 
   ngOnInit(){
     this._LoadService.isTrue();

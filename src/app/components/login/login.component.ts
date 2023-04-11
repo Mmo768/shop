@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { Subscription } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -20,7 +21,9 @@ export class LoginComponent {
   sub:Subscription = new Subscription();
 
 
-  constructor(private _AuthService:AuthService , private _Router:Router,private _CartService:CartService){}
+  constructor(private _AuthService:AuthService , private _Router:Router,private _CartService:CartService,private _Title:Title){
+    _Title.setTitle('Login');
+  }
 
 
 

@@ -5,7 +5,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { DataService } from 'src/app/services/data.service';
 import { LoadService } from 'src/app/services/load.service';
 import { Subscription } from 'rxjs';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-brand-product',
@@ -21,7 +21,9 @@ export class BrandProductComponent {
 
   
 
-  constructor(private _DataService:DataService , private _AuthService:AuthService , private _CartService:CartService , private _Router:Router , private _ActivatedRoute:ActivatedRoute,private _LoadService:LoadService){}
+  constructor(private _DataService:DataService , private _AuthService:AuthService , private _CartService:CartService , private _Router:Router , private _ActivatedRoute:ActivatedRoute,private _LoadService:LoadService,private _Title:Title){
+    _Title.setTitle('Brand-Products')
+  }
 
 // ========= start on init =========
   ngOnInit(){
