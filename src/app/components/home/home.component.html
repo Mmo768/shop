@@ -44,7 +44,7 @@
                     <a class=" flex-grow-1" routerLink="/Details" [queryParams]="{id:el.id}">
                         <img [lazyLoad]="el.imageCover" class="card-img-top" alt="...">
                         <div class="card-body d-flex flex-column">
-                            <p class="card-text text-main">{{el.category.name}}</p>
+                            <p class="card-text text-main">{{el.category?.name}}</p>
                             <h5 class="card-title flex-grow-1">{{el.title|titleCut:2}}</h5>
                             <div class="d-flex align-items-center justify-content-between">
                                 <span>{{el.price}} EGP</span>

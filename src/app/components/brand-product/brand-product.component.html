@@ -6,7 +6,7 @@
                     <a class=" flex-grow-1"  routerLink="/Details" [queryParams]="{id:el.id}">
                         <img [lazyLoad]="el.imageCover" class="card-img-top" alt="...">
                         <div class="card-body d-flex flex-column">
-                            <p class="card-text text-main">{{el.category.name}}</p>
+                            <p class="card-text text-main">{{el.category?.name}}</p>
                             <h5 class="card-title flex-grow-1">{{el.title|titleCut:2}}</h5>
                             <div class="d-flex align-items-center justify-content-between">
                                 <span>{{el.price}} EGP</span>
@@ -24,7 +24,7 @@
         </div>
         <nav *ngIf="dataProducts.metadata.numberOfPages >1" aria-label="Page navigation example" class=" my-4" >
             <ul class="pagination  d-flex justify-content-center">
-              <li class="page-item" *ngFor="let num of dataProducts?.metadata.numberOfPages|pages"><a (click)="getData( BrandId, num)" [ngClass]="{'bg-main text-white': dataProducts?.metadata.currentPage == num}"  class="page-link">{{num}}</a></li>
+              <li class="page-item" *ngFor="let num of dataProducts?.metadata?.numberOfPages|pages"><a (click)="getData( BrandId, num)" [ngClass]="{'bg-main text-white': dataProducts?.metadata.currentPage == num}"  class="page-link">{{num}}</a></li>
             </ul>
           </nav>
     </div>

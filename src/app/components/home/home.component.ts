@@ -36,6 +36,8 @@ export class HomeComponent {
     this.sub.add(this._DataService.getCategoriesCarousel().subscribe({
       next:(response)=>{
         this.dataCategoriesCarousel = response;
+        console.log(response , 'carousel');
+        
 
       },
       error:(err)=>{
@@ -48,6 +50,8 @@ export class HomeComponent {
     this.sub.add(this._DataService.getproducts(1).subscribe({
       next:(response)=>{
         this.dataProducts = response;
+        console.log(this.dataProducts , 'product');
+        
         
       },
       error:(err)=>{
